@@ -4,14 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
-
-	"github.com/ASaidOguz/linkShortener/internal/application/interfaces"
 )
-
-// HTTPHandler provides HTTP handlers for the link shortener service
-type HTTPHandler struct {
-	Service interfaces.ShortenerService
-}
 
 // ShortenURLHandler handles the request to shorten a URL
 // in here we need to validate the original url but how ?

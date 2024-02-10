@@ -11,17 +11,19 @@ import (
 // ShortenURL generates a short key for the original URL and saves it
 func (s *ShortenerServiceImpl) ShortenURL(originalURL string) (*entity.ShortenedURL, error) {
 	OriginalURL := &entity.URL{Original: originalURL}
-	//set validation terms for simple url-checking...
+	// set validation terms for simple url-checking...
+	//solidity style XD
 	success := OriginalURL.ValidateURL()
 	if !success {
 		return nil, errors.New("invalidated-url")
 	}
-
-	shortKey := generateShortKey()
+	// create random shortkey for our link
+	shortKey := s.generateShortKey()
 	shortenedURL := &entity.ShortenedURL{
 		OriginalURL: OriginalURL,
 		ShortKey:    shortKey,
 	}
+	// save our shortenedURL into database
 	err := s.Repository.Save(shortenedURL)
 	if err != nil {
 		return nil, err
@@ -39,7 +41,7 @@ func (s *ShortenerServiceImpl) Redirect(shortKey string) (string, error) {
 }
 
 // generateShortKey generates a random short key for a URL
-func generateShortKey() string {
+func (s *ShortenerServiceImpl) generateShortKey() string {
 	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	var shortKey strings.Builder
 	for i := 0; i < 6; i++ {
