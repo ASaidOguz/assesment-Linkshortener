@@ -16,11 +16,14 @@ Project structure is
 |               └── application
 |               |   └── command
 |               |   └── handlers
+|               |   |   └── http-handler_test.go
+|               |   |   └── http-handler-imp.go
 |               |   |   └── http-handler.go
 |               |   └── interfaces
-|               |   |   └── shortener-service.go
+|               |   |   └── shortener-service-imp.go
 |               |   └── mapper
 |               |   └── services
+|               |       └── shortener-servic_test.go
 |               |       └── shortener-service-imp.go
 |               |       └── shortener-service.go
 |               └── config
@@ -41,6 +44,6 @@ After starting ; project listens port:8080 and parsing urls as it received as po
 
 key: url            // required key for POST request.
 
-value: original url // that requested to be shortened. 
+value: original url // requested url to be shortened. 
 
- [x] Currently using In memory for database needs 
+- [x]  Currently using In memory for database needs 
