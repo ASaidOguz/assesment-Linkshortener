@@ -47,7 +47,6 @@ func TestShortenURL(t *testing.T) {
 		t.Error("Expected shortenedURL to be non-nil, got nil")
 	}
 
-	// Additional test cases can be added to cover edge cases and error scenarios
 }
 
 func TestRedirect(t *testing.T) {

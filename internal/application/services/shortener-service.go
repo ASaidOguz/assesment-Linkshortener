@@ -1,6 +1,7 @@
 package services
 
 import (
+	"errors"
 	"math/rand"
 	"strings"
 
@@ -9,9 +10,16 @@ import (
 
 // ShortenURL generates a short key for the original URL and saves it
 func (s *ShortenerServiceImpl) ShortenURL(originalURL string) (*entity.ShortenedURL, error) {
+	OriginalURL := &entity.URL{Original: originalURL}
+	//set validation terms for simple url-checking...
+	success := OriginalURL.ValidateURL()
+	if !success {
+		return nil, errors.New("invalidated-url")
+	}
+
 	shortKey := generateShortKey()
 	shortenedURL := &entity.ShortenedURL{
-		OriginalURL: &entity.URL{Original: originalURL},
+		OriginalURL: OriginalURL,
 		ShortKey:    shortKey,
 	}
 	err := s.Repository.Save(shortenedURL)
