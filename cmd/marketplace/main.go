@@ -11,6 +11,9 @@ import (
 )
 
 func main() {
+	//currenlty used port
+	port := ":8080"
+
 	// Initialize repository
 	repo := &infrastructure.InMemoryRepository{
 		UrlMap: make(map[string]*entity.ShortenedURL),
@@ -23,7 +26,7 @@ func main() {
 
 	// Initialize HTTP handler
 	handler := &handlers.HTTPHandler{
-		Service: *service,
+		Service: service,
 	}
 
 	// Define HTTP routes
@@ -32,5 +35,5 @@ func main() {
 
 	// Start the HTTP server
 	fmt.Println("Server is running on port 8080...")
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(port, nil)
 }

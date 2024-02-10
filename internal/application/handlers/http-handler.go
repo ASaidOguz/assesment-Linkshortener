@@ -5,15 +5,16 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/ASaidOguz/linkShortener/internal/application/services"
+	"github.com/ASaidOguz/linkShortener/internal/application/interfaces"
 )
 
 // HTTPHandler provides HTTP handlers for the link shortener service
 type HTTPHandler struct {
-	Service services.ShortenerServiceImpl
+	Service interfaces.ShortenerService
 }
 
 // ShortenURLHandler handles the request to shorten a URL
+// in here we need to validate the original url but how ?
 func (h *HTTPHandler) ShortenURLHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
