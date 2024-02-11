@@ -100,7 +100,7 @@ Service tests(using -v for gaining more information about tests)
 go test ./internal/application/services -v
 ```
 
-Hander tests
+Handler tests
 
 ```
 go test ./internal/application/handlers -v
