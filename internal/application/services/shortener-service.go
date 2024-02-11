@@ -12,7 +12,7 @@ import (
 func (s *ShortenerServiceImpl) ShortenURL(originalURL string) (*entity.ShortenedURL, error) {
 	OriginalURL := &entity.URL{Original: originalURL}
 	// set validation terms for simple url-checking...
-	//solidity style XD
+	// solidity style XD
 	success := OriginalURL.ValidateURL()
 	if !success {
 		return nil, errors.New("invalidated-url")

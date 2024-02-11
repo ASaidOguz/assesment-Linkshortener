@@ -105,3 +105,12 @@ Hander tests
 ```
 go test ./internal/application/handlers -v
 ```
+
+or Test's can be called selectively by using function-selector so can be inspected much better as shown below
+
+Example:
+
+```
+go test ./internal/application/handlers -run TestRedirectURLHandler_Works -v
+
+```

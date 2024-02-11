@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -89,5 +90,40 @@ func TestShortenURLHandler_InvalidInput(t *testing.T) {
 	// Check the response status code
 	if w.Code != http.StatusInternalServerError {
 		t.Errorf("Expected status code %d, got %d", http.StatusInternalServerError, w.Code)
+	}
+}
+
+func TestRedirectURLHandler_Works(t *testing.T) {
+	// Prepare a mock service
+	service := &MockService{}
+
+	// Create a handler
+	handler := &HTTPHandler{
+		Service: service,
+	}
+
+	// Prepare a request with a valid short key
+	req, err := http.NewRequest("GET", "/testkey", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// Create a response recorder to capture the response
+	w := httptest.NewRecorder()
+
+	// Call the RedirectHandler function
+	handler.RedirectHandler(w, req)
+
+	// Check the response status code
+	fmt.Println("response status code:", w.Code)
+	if w.Code != http.StatusFound {
+		t.Errorf("Expected status code %d, got %d", http.StatusFound, w.Code)
+	}
+
+	// Check the redirected URL
+	fmt.Println("Location get:", w.Header().Get("Location"))
+	expectedURL := "https://example.com"
+	if location := w.Header().Get("Location"); location != expectedURL {
+		t.Errorf("Expected redirect to %s, got %s", expectedURL, location)
 	}
 }
